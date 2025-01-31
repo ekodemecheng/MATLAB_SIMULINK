@@ -1,0 +1,109 @@
+>> %Program
+% Definisi matriks state-space
+A = [-3 1 0;0 -6 1;0 0 -5]; % Matriks keadaan (State Matrix)
+B = [0; 1; 1];              % Matriks input (Input Matrix)
+C = [0 1 1];                % Matriks output (Output Matrix)
+D = [0];                    % Matriks transmisi langsung (Direct Transmission)
+
+% Membuat model state-space
+sys = ss(A, B, C, D)
+
+sys =
+ 
+  A = 
+       x1  x2  x3
+   x1  -3   1   0
+   x2   0  -6   1
+   x3   0   0  -5
+ 
+  B = 
+       u1
+   x1   0
+   x2   1
+   x3   1
+ 
+  C = 
+       x1  x2  x3
+   y1   0   1   1
+ 
+  D = 
+       u1
+   y1   0
+ 
+Continuous-time state-space model.
+Model Properties
+>> % Konversi ke fungsi transfer
+[num, den] = ss2tf(A, B, C, D);
+sys_tf = tf(num, den);
+
+% Menampilkan hasil
+disp('Fungsi Transfer dari Sistem State-Space:');
+disp(sys_tf);
+Fungsi Transfer dari Sistem State-Space:
+  tf with properties:
+
+       Numerator: {[0 2 18 36]}
+     Denominator: {[1 14 63 90]}
+        Variable: 's'
+         IODelay: 0
+      InputDelay: 0
+     OutputDelay: 0
+       InputName: {''}
+       InputUnit: {''}
+      InputGroup: [1×1 struct]
+      OutputName: {''}
+      OutputUnit: {''}
+     OutputGroup: [1×1 struct]
+           Notes: [0×1 string]
+        UserData: []
+            Name: ''
+              Ts: 0
+        TimeUnit: 'seconds'
+    SamplingGrid: [1×1 struct]
+
+>> % Step response
+figure;
+step(sys);
+title('Step Response');
+grid on;
+
+% Menampilkan step info
+stepInfo = stepinfo(sys);
+disp('Step Info:');
+disp(stepInfo);
+Step Info:
+         RiseTime: 0.4394
+    TransientTime: 0.7824
+     SettlingTime: 0.7824
+      SettlingMin: 0.3618
+      SettlingMax: 0.3997
+        Overshoot: 0
+       Undershoot: 0
+             Peak: 0.3997
+         PeakTime: 1.4644
+
+>> % Simulasi impulse response
+t = linspace(0, 10, 1000); % Rentang waktu simulasi
+[y, t] = impulse(sys, t);  % Respon impuls sistem
+
+% Menghitung karakteristik impulse response
+info = lsiminfo(y, t);
+disp('Informasi Impulse Response:');
+disp(info);
+
+% Menampilkan plot impulse response
+figure;
+impulse(sys, t);
+grid on;
+title('Impulse Response');
+xlabel('Waktu (s)');
+ylabel('Amplitudo');
+Informasi Impulse Response:
+    TransientTime: 0.7824
+     SettlingTime: 9.9961
+              Min: 3.8575e-22
+          MinTime: 10
+              Max: 2
+          MaxTime: 0
+
+>> 
