@@ -1,0 +1,121 @@
+>> clear
+>> % Cruise Control: System Modeling
+
+% MODELING
+% System parameters
+m = 2000; % (m)   vehicle mass in kg
+b = 75;   % (b)   damping coefficient in N.s/m
+
+% State-space model
+A = -b/m; % Matriks keadaan (State Matrix)
+B = 1/m;  % Matriks input (Input Matrix)
+C = 1;    % Matriks output (Output Matrix)
+D = 0;    % Matriks transmisi langsung (Direct Transmission)
+
+% Membuat model state-space
+cruise_ss = ss(A,B,C,D)
+
+cruise_ss =
+ 
+  A = 
+            x1
+   x1  -0.0375
+ 
+  B = 
+           u1
+   x1  0.0005
+ 
+  C = 
+       x1
+   y1   1
+ 
+  D = 
+       u1
+   y1   0
+ 
+Continuous-time state-space model.
+Model Properties
+>> % Transfer function model
+s = tf('s');
+P_cruise = 1/(m*s+b)
+
+P_cruise =
+ 
+       1
+  -----------
+  2000 s + 75
+ 
+Continuous-time transfer function.
+Model Properties
+>> 
+% ANALYSIS
+% System parameters
+m = 2000; % (m)   vehicle mass in kg
+b = 75;   % (b)   damping coefficient in N.s/m
+u = 750;  % (u)   nominal control force in N
+
+% Open-loop step response
+s = tf('s');
+P_cruise = 1/(m*s+b);
+
+step(u*P_cruise)
+
+>> % Open-loop poles/zeros
+figure;
+pzmap(P_cruise)
+axis([-1 1 -1 1])
+
+>> % Open-loop Bode plot
+figure;
+bode(P_cruise)
+
+>> % PID Control
+% Performance specifications:
+% Rise time < 5 s
+% Overshoot < 10%
+% Steady-state error < 2%
+
+% PID Parameters
+Kp = 5000;   % Proportional gain
+Ki = 200;    % Integral gain
+Kd = 50;     % Derivative gain
+C = pid(Kp);
+
+T = feedback(C*P_cruise,1)
+
+t = 0:0.1:20;
+step(r*T,t)
+axis([0 20 0 800])
+
+stepinfo(T)
+
+T =
+ 
+      5000
+  -------------
+  2000 s + 5075
+ 
+Continuous-time transfer function.
+Model Properties
+Unrecognized function or variable 'r'.
+ 
+>> t = 0:0.1:20;
+step(u*T,t)
+axis([0 20 0 800])
+>> stepinfo(T)
+
+ans = 
+
+  struct with fields:
+
+         RiseTime: 0.8658
+    TransientTime: 1.5417
+     SettlingTime: 1.5417
+      SettlingMin: 0.8911
+      SettlingMax: 0.9846
+        Overshoot: 0
+       Undershoot: 0
+             Peak: 0.9846
+         PeakTime: 2.8856
+
+>> 
