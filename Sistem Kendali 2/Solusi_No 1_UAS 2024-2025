@@ -1,0 +1,48 @@
+%  Analisis stabilitas sistem loop tertutup (feedback)
+% Define the transfer function
+num = 1;
+den = [2 5 1 2 0];
+G = tf(num, den)
+
+G =
+ 
+              1
+  -------------------------
+  2 s^4 + 5 s^3 + s^2 + 2 s
+ 
+Continuous-time transfer function.
+Model Properties
+
+>> % Pole-Zero Map
+figure;
+grid on
+pzmap(G);
+title('Pole-Zero Map');
+>> 
+% Menampilkan nilai poles 
+>> pole(G)
+
+ans =
+
+   0.0000 + 0.0000i
+  -2.4619 + 0.0000i
+  -0.0191 + 0.6370i
+  -0.0191 - 0.6370i
+
+>> % Bode Plot
+figure;
+grid on
+bode(G);
+title('Bode Plot');
+ 
+>> % Root Locus
+figure;
+grid on
+rlocus(G);
+title('Root Locus');
+
+>> % Nyquist Plot
+figure;
+grid on
+nyquist(G);
+title('Nyquist Plot');
