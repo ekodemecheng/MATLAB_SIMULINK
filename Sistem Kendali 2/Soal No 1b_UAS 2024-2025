@@ -1,0 +1,43 @@
+ % Program
+% Define the transfer function
+num = [0.04];
+den = [1 0.02 0.04];
+sys = tf(num, den);
+% Calculate the damping ratio
+zeta = 0.02/(2*sqrt(0.04));
+% Calculate the natural frequency
+wn = sqrt(0.04);
+% Calculate the settling time
+Ts = 4/(zeta*wn);
+% Calculate the peak time
+Tp = pi/(wn*sqrt(1-zeta^2));
+% Calculate the rise time
+Tr = 1.8/(wn*sqrt(1-zeta^2));
+% Calculate the percent overshoot
+PO = 100*exp(-(pi*zeta)/sqrt(1-zeta^2));
+% Plot the step response
+figure;
+step(sys);
+title('Step Response of Transfer Function b');
+% Plot the impulse response
+figure;
+impulse(sys);
+title('Impulse Response of Transfer Function b');
+% Display the calculated values
+disp('Damping Ratio (zeta):');
+disp(zeta);
+disp('Natural Frequency (wn):');
+disp(wn);
+disp('Settling Time (Ts):');
+disp(Ts);
+disp('Peak Time (Tp):');
+disp(Tp);
+disp('Rise Time (Tr):');
+disp(Tr);
+
+disp('Percent Overshoot (PO):');
+disp(PO);
+figure;
+pzmap(sys);
+title('Pole-Zero Map Tb(s)');
+grid on;
