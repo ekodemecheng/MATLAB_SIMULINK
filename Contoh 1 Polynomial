@@ -1,0 +1,31 @@
+>> % Polynomial
+>> % x^2+5x+6 = 0
+>> % Definisikan polynomial
+>> p = [1 5 6]
+
+p =
+
+     1     5     6
+
+>> % selesaikan akar polynomial
+>> r = roots(p)
+
+r =
+
+   -3.0000
+   -2.0000
+
+>> % Menghitung nilai polynomial untuk x = -2
+>> pvalue = polyval(p,-2)
+
+pvalue =
+
+     0
+
+>> pvalue = polyval(p,-3)
+
+pvalue =
+
+     0
+
+>> 
