@@ -1,0 +1,25 @@
+% Example problem: Sistem massa-pegas-peredam
+
+% Parameter sistem
+m = 1; % massa (kg)
+b = 10; % konstanta peredam (N s/m)
+k = 20; % konstanta pegas (N/m)
+F = 1; % Force (N)
+
+% Tentukan nilai Kp, Ki, dan Kd untuk menghasilkan:
+% Fast rise time; Minimal overshoot; Zero steady-state error
+
+% Open-Loop Step Response
+s = tf('s'); % Fungsi transfer
+P = 1/(s^2 + 10*s + 20); % Persamaan sistem
+
+% Tentukan nilai PID
+Kp = 300;
+Ki = 300;
+Kd = 50;
+
+% Analisa PID
+C = pid(Kp,Ki,Kd);
+T = feedback(C*P,1);
+t = 0:0.01:5;
+step(T,t)
