@@ -42,24 +42,3 @@ fprintf('Overshoot     : %.2f %%\n', step_info.Overshoot);
 fprintf('Peak          : %.4f\n', step_info.Peak);
 fprintf('Peak Time     : %.4f s\n', step_info.PeakTime);
 fprintf('Steady-State  : %.4f\n', dcgain(sys));
-=====================================
-STEP RESPONSE CHARACTERISTICS
-=====================================
-         RiseTime: 0.0418
-    TransientTime: 0.3284
-     SettlingTime: 0.3284
-      SettlingMin: 0.9249
-      SettlingMax: 1.1467
-        Overshoot: 14.6676
-       Undershoot: 0
-             Peak: 1.1467
-         PeakTime: 0.1186
-
-
-Rise Time      : 0.0418 s
-Settling Time : 0.3284 s
-Overshoot     : 14.67 %
-Peak          : 1.1467
-Peak Time     : 0.1186 s
-Steady-State  : 1.0000
->> 
