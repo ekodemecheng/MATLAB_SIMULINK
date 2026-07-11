@@ -1,0 +1,51 @@
+>> [zeros poles] = zpkdata(P_pend,'v')
+
+zeros =
+
+     0
+
+
+poles =
+
+    5.8648
+   -5.8979
+   -0.0625
+
+>> [zeros poles] = zpkdata(P_cart,'v')
+
+zeros =
+
+    4.7556
+   -4.7556
+
+
+poles =
+
+         0
+    5.8648
+   -5.8979
+   -0.0625
+
+>> figure('Name','Pole-Zero Maps')
+
+subplot(1,2,1)
+
+pzmap(P_cart)
+grid on
+hold on
+
+xline(0,'k--','LineWidth',1.5)
+yline(0,'k--','LineWidth',1.5)
+
+title('Cart')
+
+subplot(1,2,2)
+
+pzmap(P_pend)
+grid on
+hold on
+
+xline(0,'k--','LineWidth',1.5)
+yline(0,'k--','LineWidth',1.5)
+
+title('Pendulum')
