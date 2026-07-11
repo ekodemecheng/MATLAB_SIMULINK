@@ -1,0 +1,65 @@
+M = 1; % Massa (kg)
+k = 1; % Konstanta pegas (N/m)
+b = 0.2; % Konstanta peredam (Ns/m)
+F = 1; % Input gaya (N)
+
+Kp = 300;
+Ki = 550;
+Kd = 35;
+
+%% Transfer Function Closed Loop
+
+Fs = [Kd Kp Ki];
+Xs = [M b+Kd k+Kp Ki];
+
+sys = tf(Fs,Xs);
+
+%% Step Response
+
+t = 0:0.01:2;
+
+figure
+step(sys,t)
+grid on
+
+title('Closed-Loop Step Response of Mass-Spring-Damper System with PID Controller')
+xlabel('Time (seconds)')
+ylabel('Amplitude')
+legend('System Response','Location','Southeast')
+
+%% Step Response Characteristics
+
+step_info = stepinfo(sys);
+
+disp('=====================================')
+disp('STEP RESPONSE CHARACTERISTICS')
+disp('=====================================')
+disp(step_info)
+
+fprintf('\nRise Time      : %.4f s\n', step_info.RiseTime);
+fprintf('Settling Time : %.4f s\n', step_info.SettlingTime);
+fprintf('Overshoot     : %.2f %%\n', step_info.Overshoot);
+fprintf('Peak          : %.4f\n', step_info.Peak);
+fprintf('Peak Time     : %.4f s\n', step_info.PeakTime);
+fprintf('Steady-State  : %.4f\n', dcgain(sys));
+=====================================
+STEP RESPONSE CHARACTERISTICS
+=====================================
+         RiseTime: 0.0418
+    TransientTime: 0.3284
+     SettlingTime: 0.3284
+      SettlingMin: 0.9249
+      SettlingMax: 1.1467
+        Overshoot: 14.6676
+       Undershoot: 0
+             Peak: 1.1467
+         PeakTime: 0.1186
+
+
+Rise Time      : 0.0418 s
+Settling Time : 0.3284 s
+Overshoot     : 14.67 %
+Peak          : 1.1467
+Peak Time     : 0.1186 s
+Steady-State  : 1.0000
+>> 
