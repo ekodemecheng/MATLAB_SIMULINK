@@ -7,7 +7,7 @@ Kp = 300;
 Ki = 550;
 Kd = 35;
 
-%% Transfer Function Closed Loop
+%% Transfer Function
 
 Fs = [Kd Kp Ki];
 Xs = [M b+Kd k+Kp Ki];
@@ -25,20 +25,20 @@ grid on
 title('Closed-Loop Step Response of Mass-Spring-Damper System with PID Controller')
 xlabel('Time (seconds)')
 ylabel('Amplitude')
-legend('System Response','Location','Southeast')
 
-%% Step Response Characteristics
+%% Step Information
 
 step_info = stepinfo(sys);
 
 disp('=====================================')
 disp('STEP RESPONSE CHARACTERISTICS')
 disp('=====================================')
+
 disp(step_info)
 
-fprintf('\nRise Time      : %.4f s\n', step_info.RiseTime);
-fprintf('Settling Time : %.4f s\n', step_info.SettlingTime);
-fprintf('Overshoot     : %.2f %%\n', step_info.Overshoot);
-fprintf('Peak          : %.4f\n', step_info.Peak);
-fprintf('Peak Time     : %.4f s\n', step_info.PeakTime);
-fprintf('Steady-State  : %.4f\n', dcgain(sys));
+fprintf('\nRise Time      : %.4f s\n',step_info.RiseTime);
+fprintf('Settling Time : %.4f s\n',step_info.SettlingTime);
+fprintf('Overshoot     : %.2f %%\n',step_info.Overshoot);
+fprintf('Peak          : %.4f\n',step_info.Peak);
+fprintf('Peak Time     : %.4f s\n',step_info.PeakTime);
+fprintf('Steady State  : %.4f\n',dcgain(sys));
